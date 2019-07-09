@@ -4,6 +4,9 @@ class HackerNews
     //private static $storyIds;
     public static function getStoryIds($type = "top")
     {
+        if(!array_search($type,["top","new","best","ask","show","job"])){
+            $type = "top";
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -13,14 +16,15 @@ class HackerNews
 
         return json_decode($result);
     }
+
     /**
-     * 
+     *
      */
-    public static function getStories($storyIds, $start=0, $amount=0)
+    public static function getStories($storyIds, $start = 0, $amount = 0)
     {
-        if($amount>0){
-            $storyIds_sliced = array_slice($storyIds,$start,$amount);
-        }else{
+        if ($amount > 0) {
+            $storyIds_sliced = array_slice($storyIds, $start, $amount);
+        } else {
             $storyIds_sliced = $storyIds;
         }
         $curlHandles = array();
@@ -46,7 +50,7 @@ class HackerNews
 
         // Close handles, populate return array
         foreach ($curlHandles as $ch) {
-            $stories[] =  json_decode(curl_multi_getcontent($ch)); // Faster than array_push
+            $stories[] = json_decode(curl_multi_getcontent($ch)); // Faster than array_push
             curl_multi_remove_handle($multiCurlHandle, $ch);
         }
         curl_multi_close($multiCurlHandle);
