@@ -1,7 +1,18 @@
 <?php
+
+/**
+ * Class to access the {@link https://github.com/HackerNews/API Hacker news API}
+ * @author Thomas Novotny <dev@thomasnovotny.com>
+ */
+
 class HackerNews
 {
-    //private static $storyIds;
+    /**
+     * Return list of story IDs for a specific topic. If input string is invalid, story IDs for the "top" category will be returned.
+     *
+     * @param string Any one of "top","new","best","ask","show" or "job"
+     * @return array Array of story IDs
+     */
     public static function getStoryIds($type = "top")
     {
         if(!array_search($type,["top","new","best","ask","show","job"])){
@@ -17,8 +28,14 @@ class HackerNews
         return json_decode($result);
     }
 
+
     /**
+     * Returns an array of stories, as defined at {@link https://github.com/HackerNews/API}
      *
+     * @param array $storyIds
+     * @param integer $start Star index
+     * @param integer $amount Amount of stories to load
+     * @return array Array of stories
      */
     public static function getStories($storyIds, $start = 0, $amount = 0)
     {

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "andreskrey/readability.php": "^2.0",
+        "jbzoo/image": "3.0"
+    }
+}
