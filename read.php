@@ -1,8 +1,8 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-use andreskrey\Readability\Readability;
 use andreskrey\Readability\Configuration;
 use andreskrey\Readability\ParseException;
+use andreskrey\Readability\Readability;
 
 require __DIR__ . '/get-fav.php';
 
@@ -16,7 +16,7 @@ $configuration = new Configuration();
 $configuration
     ->setFixRelativeURLs(true)
     ->setOriginalURL($url);
-    
+
 $readability = new Readability($configuration);
 
 $html = file_get_contents($url);
@@ -30,26 +30,26 @@ try {
     foreach (iterator_to_array($dom->getElementsByTagName('a')) as $link) {
         $href = $link->getAttribute('href');
         if ($href) {
-            $link->setAttribute('href', $prefixURL.$href);
+            $link->setAttribute('href', $prefixURL . $href);
         }
     }
     foreach (iterator_to_array($dom->getElementsByTagName('img')) as $image) {
-        
+
         $src = $image->getAttribute('src');
         if ($src) {
-            $image->setAttribute('src', $prefixIMGURL.$src);
+            $image->setAttribute('src', $prefixIMGURL . $src);
         }
     }
     $headline = $readability->getTitle();
     $content = $dom->C14N();
     $title = $headline;
-    
+
     $titleElement = $dom->getElementsByTagName("title");
     if ($titleElement->length > 0) {
         $title = $titleElement->item(0)->textContent;
-        if(strpos($title, ' - ') !== false){
-            $title_split = split(' - ',$title);
-            $title = $title_split(sizeof($title_split)-1);
+        if (strpos($title, ' - ') !== false) {
+            $title_split = split(' - ', $title);
+            $title = $title_split(sizeof($title_split) - 1);
         }
     }
 } catch (ParseException $e) {
@@ -57,8 +57,8 @@ try {
 }
 
 $grap_favicon = array(
-    'URL' => $url,   // URL of the Page we like to get the Favicon from
-    'SAVE'=> false,   // Save Favicon copy local (true) or return only favicon url (false)
+    'URL' => $url, // URL of the Page we like to get the Favicon from
+    'SAVE' => false, // Save Favicon copy local (true) or return only favicon url (false)
 );
 $favicon = grap_favicon($grap_favicon);
 
