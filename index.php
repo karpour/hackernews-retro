@@ -1,6 +1,6 @@
 <?php
 
-require './HackerNews.php';
+require './hackernews.php';
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -28,7 +28,7 @@ $displayIdx = $startIdx + 1;
 
 <body link="#000000" vlink="#828282">
     <font face="Arial" size="2">
-        <table align="center" width="620" cellspacing="0" cellpadding="0" bgcolor="#f6f6ef">
+        <table align="center" width="594" cellspacing="0" cellpadding="0" bgcolor="#f6f6ef">
             <tbody>
                 <tr>
                     <td bgcolor="#ff6600" VALIGN="middle">
